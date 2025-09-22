@@ -23,14 +23,14 @@ export class MyCard extends LitElement {
   static get styles() {
     return css`
       :host {
-        display: block;
+        display:inline-block;
       }
       .card.yellow{
         background-color: yellow;
       }
 
       .card{
-         background-color: pink;
+        background-color: pink;
         max-width: 400px;
         padding: 16px;
         border: 4px solid black;
@@ -54,22 +54,22 @@ export class MyCard extends LitElement {
         display: block;
     }
       .button:hover {
-      background-color: #04AA6D;
-      color: white;
+        background-color: #04AA6D;
+        color: white;
     }
 
-    .img{
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 300px;
-      display: flex;           /* use flexbox */
-      justify-content: center; /* centers horizontally */
-    }
-    .img img {
-      max-width: 100%;   /* makes sure it fits container */
-      height: auto;      /* keeps proportions */
-      display: block;    /* removes weird inline gaps */
-    }
+      .img{
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 300px;
+        display: flex;           /* use flexbox */
+        justify-content: center; /* centers horizontally */
+      }
+      .img img {
+        max-width: 100%;   /* makes sure it fits container */
+        height: auto;      /* keeps proportions */
+        display: block;    /* removes weird inline gaps */
+      }
     `;
   }
 
