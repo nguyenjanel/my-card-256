@@ -17,7 +17,7 @@ export class MyCard extends LitElement {
     this.title = "My card";
     this.img = "#";
     this.description = "This is the description of the photo."
-    this.bgColor = "pink";
+    this.fancy = false;
   }
 
   static get styles() {
@@ -25,8 +25,13 @@ export class MyCard extends LitElement {
       :host {
         display:inline-block;
       }
-      .card.yellow{
-        background-color: yellow;
+      :host([fancy]) .card{
+        background-color: var(--my-card-fancy-bg, lightblue);
+      }
+      :host([fancy]) {
+        border: 2px solid white;
+        box-shadow: 10px 5px 5px red;
+        max-width: 400px;
       }
 
       .card{
@@ -39,7 +44,7 @@ export class MyCard extends LitElement {
         text-align: center;
         word-wrap: break-word;
       }
-      .p{
+      .paragraph{
         font-size: 12px;
         text-align: left;
         width: 75%; 
@@ -65,22 +70,44 @@ export class MyCard extends LitElement {
         display: flex;           /* use flexbox */
         justify-content: center; /* centers horizontally */
       }
-      .img img {
-        max-width: 100%;   /* makes sure it fits container */
-        height: auto;      /* keeps proportions */
-        display: block;    /* removes weird inline gaps */
+       details summary {
+        text-align: left;
+        font-size: 20px;
+        padding: 8px 0;
       }
+
+    details[open] summary {
+      font-weight: bold;
+    }
+  
+    details div {
+      border: 2px solid black;
+      text-align: left;
+      padding: 8px;
+      height: 70px;
+      overflow: auto;
+    }
+    .slot{
+      overflow: auto;
+      height: 100px;
+    }
     `;
   }
 
   render() {
       return html`
-      <div class="card" style="background-color: ${this.bgColor || 'pink'}">
+      <div class="card">
         <h1 class="heading">${this.title}</h1>
         
-        <img class="img" src="${this.img}" alt="${this.title}" />
+        <img class="img" src="${this.img}" alt="" />
         <div class="description">
-          <p class="p">${this.description}</p>
+          <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+            <summary>Description</summary>
+            <div class="slot">
+            <slot>${this.description}</slot>
+            </div>
+          </details>
+
           <a href="https://hax.psu.edu/" target="_blank">
           <button class = "button">Details</button>
           </a>
@@ -89,12 +116,17 @@ export class MyCard extends LitElement {
     `;
   }
 
+  openChanged(event){
+    console.log(event.target);
+    this.fancy = event.target.open;
+  }
+
   static get properties() {
     return {
       title: { type: String },
       img: { type: String },
       description: { type: String },
-      bgColor: { type: String } ,
+      fancy: { type: Boolean, reflect: true},
     };
   }
 }
