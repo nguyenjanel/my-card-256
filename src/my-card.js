@@ -63,18 +63,19 @@ export class MyCard extends LitElement {
         color: white;
     }
 
-      .img{
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 300px;
-        display: flex;           /* use flexbox */
-        justify-content: center; /* centers horizontally */
-      }
-       details summary {
-        text-align: left;
-        font-size: 20px;
-        padding: 8px 0;
-      }
+    .img{
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 300px;
+      max-height: 400px;
+      display: flex;           /* use flexbox */
+      justify-content: center; /* centers horizontally */
+    }
+    details summary {
+      text-align: left;
+      font-size: 20px;
+      padding: 8px 0;
+    }
 
     details[open] summary {
       font-weight: bold;
@@ -91,6 +92,11 @@ export class MyCard extends LitElement {
       overflow: auto;
       height: 100px;
     }
+    .imgContainer{
+      width: 400px;
+      height: 200px;   /* fixed height */
+      overflow: hidden;
+    }
     `;
   }
 
@@ -98,8 +104,9 @@ export class MyCard extends LitElement {
       return html`
       <div class="card">
         <h1 class="heading">${this.title}</h1>
-        
-        <img class="img" src="${this.img}" alt="" />
+        <div class="imgContainer">
+          <img class="img" src="${this.img}" alt="" />
+        </div>
         <div class="description">
           <details ?open="${this.fancy}" @toggle="${this.openChanged}">
             <summary>Description</summary>
